@@ -1,6 +1,6 @@
 server{
 
-  listen {{nginx_listen_http}};
+  listen {{nginx.listen_http}};
 
   server_name default.{{domain_name}};
 
@@ -12,6 +12,6 @@ server{
   }
 
   location /.well-known/ {
-    root {{nginx_root_directory}};
+    root {{nginx.root_directory}};
   }
 }
