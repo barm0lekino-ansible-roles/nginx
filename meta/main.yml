@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: ngix
+  role_name: nginx
   author: barm0leykin
   description: simple nginx role
   license: license BSD
