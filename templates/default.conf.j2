@@ -1,8 +1,8 @@
 server{
 
-  listen {{nginx.listen_http}};
+  listen {{ nginx.listen_http_port }};
 
-  server_name default.{{domain_name}};
+  server_name default.{{ domain_name }};
 
   location /nginx_status {
 	stub_status on;
@@ -12,6 +12,11 @@ server{
   }
 
   location /.well-known/ {
-    root {{nginx.root_directory}};
+    root {{ nginx.root_directory }};
   }
+
+  # security
+	include snippets/security.conf;
+  # additional config
+	include snippets/general.conf;
 }

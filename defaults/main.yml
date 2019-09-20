@@ -1,24 +1,13 @@
 ---
+  domain_name: devops.rebrain.srwx.net
   nginx:
     sendfile: 'on'
-    tcp_nodelay: 'on'
-    tcp_nopush: 'on'
+    client_max_body_size: 16M
     worker_connections: 16384
     gzip_onoff: "on"
-    listen_http: 80
-    listen_https: 443
+    gzip_comp_level: 6
+    listen_http_port: 80
+    listen_https_port: 443
     root_directory: /var/www
     log_path: /var/log/nginx
     #  domain_name: devops.rebrain.srwx.net
-
-  ###
-  # SSL
-  letsencrypt_enabled: false
-  obtain_cert: 0
-  le_dry_run: yes # " --dry-run"
-  le_ssl_dir:  /etc/letsencrypt/live
-  le_root_directory: /var/www
-  le_email: "bitrush@mail.ru"
-  domain_name: devops.rebrain.srwx.net
-  vhosts: [myhost]
-

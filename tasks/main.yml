@@ -1,5 +1,4 @@
 ---
-
   - name: Install Nginx
     package:
       pkg: nginx
@@ -10,9 +9,11 @@
   - name: Copy files
     copy:
       src: files/{{ item }}
-      dest: /etc/nginx/sites-available/
+      dest: /etc/nginx/snippets/
     with_items:
+      - general.conf
       - ssl.conf
+      - security.conf
     tags: ["nginx"]
 
   - name: Updating nginx.conf
@@ -35,25 +36,11 @@
     tags: ["nginx"]
     notify: Reload nginx
 
-  - name: iptables HTTP 80
+  - name: iptables open {{ nginx.listen_http_port }} port
     iptables:
       chain: INPUT
       protocol: tcp
-      destination_port: 80
+      destination_port: "{{ nginx.listen_http_port }}"
       jump: ACCEPT
     notify: save iptables
     tags: ["nginx", "iptables", "nginx_iptables"]
-
-  - name: iptables HTTPS 443
-    iptables:
-      chain: INPUT
-      protocol: tcp
-      destination_port: 443
-      jump: ACCEPT
-    notify: save iptables
-    tags: ["nginx", "iptables", "nginx_iptables"]
-
-  - name: include Letsencrypt tasks
-    include: le-cert.yml
-    when: (letsencrypt_enabled == 1)
-    tags: ["nginx", "ssl-cert"]
