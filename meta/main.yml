@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: nginx
+  role_name: ngix
   author: barm0leykin
   description: simple nginx role
   license: license BSD
@@ -13,3 +13,6 @@ galaxy_info:
     - name: RedHat
       versions:
         - all
+
+dependencies:
+  - role: common
