@@ -13,6 +13,3 @@ galaxy_info:
     - name: RedHat
       versions:
         - all
-
-dependencies:
-  - role: common

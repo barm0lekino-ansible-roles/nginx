@@ -11,6 +11,8 @@
 
   nginx_config_templates:
     - prom
+  templates_path:
+    - templates/
   nginx_configs:
 
   ###
