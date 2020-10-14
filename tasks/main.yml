@@ -39,4 +39,12 @@
       dest: /etc/nginx/conf.d/
     with_items:
       - "{{ nginx_configs }}"
+    notify: Reload nginx
+    tags: nginx
+
+  - name: Copy basic auth file
+    copy:
+      src: ~/.htpasswd
+      dest: /etc/nginx/
+    notify: Reload nginx
     tags: nginx

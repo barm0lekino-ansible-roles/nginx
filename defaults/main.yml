@@ -10,7 +10,7 @@
   nginx_log_path: /var/log/nginx
 
   nginx_config_templates:
-    - prom
+    - example
   templates_path:
     - templates/
   nginx_configs:
