@@ -1,5 +1,5 @@
 server{
-  {% if letsencrypt_enabled == 1 %}
+  {% if letsencrypt_enabled == 1 -%}
   listen {{ nginx_listen_https }} ssl http2;
   ssl_protocols TLSv1.3;
   {% else %}
@@ -11,7 +11,7 @@ server{
   error_log   {{ nginx_log_path }}/{{ inventory_hostname_short }}.{{ domain_name }}_error.log;
   access_log  {{ nginx_log_path }}/{{ inventory_hostname_short }}.{{ domain_name }}_access.log;
 
-  {% if letsencrypt_enabled == 1 %}
+  {% if letsencrypt_enabled == 1 -%}
   ssl_certificate {{ le_ssl_dir }}/{{ inventory_hostname_short }}.{{ domain_name }}/fullchain.pem;
   ssl_certificate_key {{ le_ssl_dir }}/{{ inventory_hostname_short }}.{{ domain_name }}/privkey.pem;
   #include /etc/nginx/sites-available/ssl.conf;
@@ -25,7 +25,7 @@ server{
   }
 
   location /admin {
-  {% if auth_basic == 1 %}
+  {% if auth_basic == 1 -%}
     auth_basic "Restricted";
     auth_basic_user_file /etc/nginx/.htpasswd;
   {% endif %}
@@ -35,7 +35,7 @@ server{
   location /nginx_status {
     stub_status on;
     access_log off;
-    allow {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }};
+    allow 127.0.0.1;
     deny all;
   }
 
