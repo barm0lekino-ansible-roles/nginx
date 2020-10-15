@@ -47,4 +47,5 @@
       src: ~/.htpasswd
       dest: /etc/nginx/
     notify: Reload nginx
+    when: (auth_basic == 1)
     tags: nginx

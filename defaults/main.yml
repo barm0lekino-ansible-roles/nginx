@@ -14,6 +14,7 @@
   templates_path:
     - templates/
   nginx_configs:
+  auth_basic: no
 
   ###
   # SSL
