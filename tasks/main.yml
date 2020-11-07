@@ -1,4 +1,9 @@
 ---
+  - name: Gathering OS Family facts
+    #setup: filter='ansible_os_family'
+    setup: filter='ansible_os_family, ansible_default_ipv4'
+    #setup: filter='*'
+    tags: common
 
   - name: Install Nginx
     package:
@@ -7,7 +12,7 @@
       update_cache: yes
     tags: ["nginx"]
 
-  - name: Delete default conf
+  - name: Delete default site conf
     file:
       state: absent
       path: "{{ item }}"
@@ -21,7 +26,17 @@
     when: (letsencrypt_enabled == 1)
     tags: ["nginx", "ssl-cert"]
 
-  - name: Copy nginx configs from template
+  - name: Update nginx main config from template
+    template:
+      src: "nginx.conf.j2" #"{{ templates_path }}/{{ item }}.conf.j2"
+      dest: "/etc/nginx/nginx.conf"
+      owner: www-data
+      group: www-data
+      mode: 0644
+    notify: Reload nginx
+    tags: nginx
+
+  - name: Update nginx sites config from templates
     template:
       src: "{{ item }}.conf.j2" #"{{ templates_path }}/{{ item }}.conf.j2"
       dest: "/etc/nginx/conf.d/{{ item }}.conf"
